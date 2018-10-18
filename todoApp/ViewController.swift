@@ -8,7 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ToDoViewController: UIViewController {
+    
+    var list = [String]()
+    var testList = ["test", "test", "homework"]
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
