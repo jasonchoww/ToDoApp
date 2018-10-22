@@ -48,6 +48,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="gex-aq-hmv"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="V8U-rz-fdR"/>
+                                </connections>
                             </tableView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add Task Here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z1E-8f-gtU">
                                 <rect key="frame" x="16" y="41" width="239" height="30"/>
@@ -77,7 +81,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="taskTableView" destination="fBC-V5-eEq" id="FeU-iH-5xf"/>
+                        <outlet property="taskTableView" destination="fBC-V5-eEq" id="OvA-6V-WOj"/>
                         <outlet property="textTaskField" destination="z1E-8f-gtU" id="1nu-NP-QUN"/>
                     </connections>
                 </viewController>
