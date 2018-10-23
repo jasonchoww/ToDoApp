@@ -10,12 +10,29 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var list = ["corn", "milk", "eggs"]
+    //var setupList = ["corn", "milk", "eggs"]
+    var list = [String]()
     var newTaskAfterEdit: UITextField?
     var newText = ""
-    
+
     @IBOutlet weak var textTaskField: UITextField!
     @IBOutlet weak var taskTableView: UITableView!
+    
+    func saveList(){
+        let defaults = UserDefaults.standard
+        defaults.set(list, forKey: "SavedList")
+        print("***LIST SAVED!***")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let defaults = UserDefaults.standard
+        let retrievedList = defaults.stringArray(forKey: "SavedList")
+        list = retrievedList!
+        print(retrievedList)
+        taskTableView.reloadData()
+        
+    }
+
     
     //*** TASK TEXT BAR
     var textTaskFieldConverter: String{
@@ -47,6 +64,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.newText = (self.newTaskAfterEdit?.text)!
                 self.list.remove(at: indexPath.row)
                 self.list.insert(self.newText, at: indexPath.row)
+                self.saveList()
                 self.taskTableView.reloadData()
             }))
             
@@ -63,23 +81,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let completeMark = " \u{2705}"
             let newRow = self.list.remove(at: indexPath.row) + completeMark
             self.list.insert(newRow, at: indexPath.row)
+            self.saveList()
             self.taskTableView.reloadData()
-           
+            
         }
         complete.backgroundColor = .green
         
         //EDIT
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
             createAlert(title: "Edit", message: "Would you like to edit your task?")
+            self.saveList()
         }
         edit.backgroundColor = .lightGray
         
         //TRASH
         let trash = UITableViewRowAction(style: .normal, title: "Trash"){ action, index in
             self.list.remove(at: indexPath.row)
+            self.saveList()
             self.taskTableView.reloadData()
+            
         }
         trash.backgroundColor = .red
+        self.saveList()
         
         return[trash, edit, complete]
     }
@@ -90,6 +113,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         list.append(textTaskFieldConverter)
         }
         textTaskField.text = ""
+        self.saveList()
         taskTableView.reloadData()
     }
     
