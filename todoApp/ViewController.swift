@@ -12,7 +12,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var list = ["corn", "milk", "eggs"]
     var newTaskAfterEdit: UITextField?
-    var edited = false
     var newText = ""
     
     @IBOutlet weak var textTaskField: UITextField!
@@ -40,6 +39,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
 
+        //ALERT FOR EDIT
+        func createAlert(title:String, message:String){
+            let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+            
+            alert.addAction(UIAlertAction(title:"Accept", style: UIAlertActionStyle.default, handler: { (action) in alert.dismiss(animated: true, completion: nil)
+                self.newText = (self.newTaskAfterEdit?.text)!
+                self.list.remove(at: indexPath.row)
+                self.list.insert(self.newText, at: indexPath.row)
+                self.taskTableView.reloadData()
+            }))
+            
+            alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertActionStyle.default, handler: { (action) in alert.dismiss(animated: true, completion: nil)
+            }))
+            
+            alert.addTextField(configurationHandler: newTaskAfterEdit)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        
         //COMPLETE
         let complete = UITableViewRowAction(style: .normal, title: "Complete"){ action, index in
             let completeMark = " \u{2705}"
@@ -52,12 +70,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         //EDIT
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
-            self.createAlert(title: "Edit", message: "Would you like to edit your task?")
-            if(self.edited == true){
-                self.list.remove(at: indexPath.row)
-                self.list.insert(self.newText, at: indexPath.row)
-                self.taskTableView.reloadData()
-            }
+            createAlert(title: "Edit", message: "Would you like to edit your task?")
         }
         edit.backgroundColor = .lightGray
         
@@ -71,8 +84,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return[trash, edit, complete]
     }
     
-    
-    
     //*** BUTTONS
     @IBAction func addTask(_ sender: Any) {
         if (textTaskFieldConverter != ""){
@@ -80,24 +91,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         textTaskField.text = ""
         taskTableView.reloadData()
-    }
-    
-    //*** ALERT
-    func createAlert(title:String, message:String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addAction(UIAlertAction(title:"Accept", style: UIAlertActionStyle.default, handler: { (action) in alert.dismiss(animated: true, completion: nil)
-            self.edited  = true
-            self.newText = (self.newTaskAfterEdit?.text)!
-        }))
-        
-        alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertActionStyle.default, handler: { (action) in alert.dismiss(animated: true, completion: nil)
-            self.edited = false
-        }))
-        
-        alert.addTextField(configurationHandler: newTaskAfterEdit)
-        
-        self.present(alert, animated: true, completion: nil)
     }
     
     func newTaskAfterEdit(textField: UITextField!){
