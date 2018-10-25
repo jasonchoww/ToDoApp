@@ -17,19 +17,20 @@ class ToDoViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var textTaskField: UITextField!
     @IBOutlet weak var taskTableView: UITableView!
     
+    //Saves to defaults
     func saveList(){
         let defaults = UserDefaults.standard
         defaults.set(list, forKey: "SavedList")
         print("***LIST SAVED!***")
     }
     
+    //Retrieves default values saved
     override func viewDidAppear(_ animated: Bool) {
         let defaults = UserDefaults.standard
         let retrievedList = defaults.stringArray(forKey: "SavedList")
         list = retrievedList!
         taskTableView.reloadData()
     }
-
     
     //*** TASK TEXT BAR
     var textTaskFieldConverter: String{
@@ -136,6 +137,6 @@ class ToDoViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
 
-
+    
 }
 

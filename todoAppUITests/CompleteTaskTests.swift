@@ -5,6 +5,7 @@
 //  Created by Jason Chow on 10/24/18.
 //  Copyright © 2018 Jason Chow. All rights reserved.
 //
+// Tests for completing a task through UI
 
 import XCTest
 
@@ -23,10 +24,6 @@ class CompleteTaskTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        
-        
-        
-        
         
         let app = XCUIApplication()
         app.launchArguments = ["UI-TESTING"]
@@ -47,10 +44,6 @@ class CompleteTaskTests: XCTestCase {
         let testCompleteTask = tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["test 1 ✅"]/*[[".cells.staticTexts[\"test 1 ✅\"]",".staticTexts[\"test 1 ✅\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         XCTAssertEqual("test 1 \u{2705}", testCompleteTask.label)
       
-        
-      
-        
-        
     }
     
     func testPerformanceExample() {

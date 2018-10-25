@@ -5,6 +5,7 @@
 //  Created by Jason Chow on 10/24/18.
 //  Copyright © 2018 Jason Chow. All rights reserved.
 //
+// Tests for editing a task through UI
 
 import XCTest
 
@@ -26,7 +27,7 @@ class EditTaskTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["UI-TESTING"]
         app.launch()
-
+        
         let typeSomething = app.textFields["Add Task Here..."]
         typeSomething.tap()
         typeSomething.typeText("test 1")

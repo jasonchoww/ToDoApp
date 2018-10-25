@@ -5,6 +5,7 @@
 //  Created by Jason Chow on 10/24/18.
 //  Copyright © 2018 Jason Chow. All rights reserved.
 //
+// Tests for adding a task through UI
 
 import XCTest
 
