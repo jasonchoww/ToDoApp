@@ -8,9 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ToDoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    //var setupList = ["corn", "milk", "eggs"]
     var list = [String]()
     var newTaskAfterEdit: UITextField?
     var newText = ""
@@ -28,9 +27,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let defaults = UserDefaults.standard
         let retrievedList = defaults.stringArray(forKey: "SavedList")
         list = retrievedList!
-        print(retrievedList)
         taskTableView.reloadData()
-        
     }
 
     
@@ -120,6 +117,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func newTaskAfterEdit(textField: UITextField!){
         newTaskAfterEdit = textField
         newTaskAfterEdit?.placeholder = "Enter new task..."
+    }
+    
+    //RESET
+    func resetList(){
+        list = [String]()
+        saveList()
+        //taskTableView.reloadData()
     }
     
     override func viewDidLoad() {

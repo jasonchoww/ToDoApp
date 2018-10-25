@@ -1,15 +1,14 @@
 //
-//  todoAppTests.swift
-//  todoAppTests
+//  TrashTaskTests.swift
+//  todoAppUITests
 //
-//  Created by Jason Chow on 10/17/18.
+//  Created by Jason Chow on 10/24/18.
 //  Copyright © 2018 Jason Chow. All rights reserved.
 //
 
 import XCTest
-@testable import todoApp
 
-class todoAppTests: XCTestCase {
+class TrashTaskTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -25,6 +24,23 @@ class todoAppTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
+        let app = XCUIApplication()
+        app.launchArguments = ["UI-TESTING"]
+        app.launch()
+        
+        let typeSomething = app.textFields["Add Task Here..."]
+        typeSomething.tap()
+        typeSomething.typeText("test 1")
+        app.buttons["+ ADD TASK"].tap()
+        
+        let tablesQuery = app.tables
+        let test1StaticText = tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["test 1"]/*[[".cells.staticTexts[\"test 1\"]",".staticTexts[\"test 1\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        test1StaticText.tap()
+        test1StaticText.swipeLeft()
+        tablesQuery.buttons["Trash"].tap()
+
+        XCTAssertFalse(test1StaticText.exists)
+    
     }
     
     func testPerformanceExample() {
