@@ -27,8 +27,11 @@ class ToDoViewController: UIViewController, UITableViewDelegate, UITableViewData
     //Retrieves default values saved
     override func viewDidAppear(_ animated: Bool) {
         let defaults = UserDefaults.standard
-        let retrievedList = defaults.stringArray(forKey: "SavedList")
-        list = retrievedList!
+        
+        var retrievedList = [String]()
+        retrievedList = defaults.stringArray(forKey: "SavedList")!
+        list = (retrievedList)
+        
         taskTableView.reloadData()
     }
     
